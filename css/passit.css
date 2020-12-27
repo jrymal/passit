@@ -1,0 +1,54 @@
+.state_paint.running {
+    background: linear-gradient(-45deg, ##d7bde2, #7d3c98, #1a5276, #76d7c4, #1D8348);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+}
+
+.state_paint.paused {
+    background: linear-gradient(30deg, #fcf3cf, #d4ac0d);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+}
+
+.state_paint.complete {
+    background: linear-gradient(30deg, #f5b7b1, #943126);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+.state_paint{
+    background: linear-gradient(30deg, #f2d7d5, #e8daef, #d6eaf8, #d5f5e3, #f6ddcc);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+button {
+    min-width: 42px;
+    min-height: 42px;
+    font: 30px;
+}
+
+button.primary {
+    color: #52be80;
+}
+
+button.secondary {
+    color: #000000;
+}
+
+.banner{
+    font: 30px;
+    font-weight: bold;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;  
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

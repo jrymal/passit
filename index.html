@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="EN-US">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content="Love a game of Hot Potato? This is your page. his site plays a game of hot potato with a variety of options."/>
+        <meta name="author" content="jrymal"/>
+
+        <title>Pass It!</title>
+
+        <link rel="manifest" href="manifest.json">
+
+        <!-- Standard icons and style features-->
+        <meta name="theme-color" content="#612525"/>
+        <link rel="icon" href="images/icons-70.png" sizes="70x70" />
+        <link rel="icon" href="images/icons-80.png" sizes="80x80" />
+        <link rel="icon" href="images/icons-150.png" sizes="150x150" />
+        <link rel="icon" href="images/icons-192.png" sizes="192x192" />
+        <link rel="icon" href="images/icons-512.png" sizes="512x512" />
+        
+        <!-- MS icons -->
+        <meta name="msapplication-square70x70logo" content="images/icons-70.png"/>
+        <meta name="msapplication-square150x150logo" content="images/icons-150.png"/>
+        <meta name="msapplication-wide310x150logo" content="images/icons-310x150.png"/>
+        
+        <!-- Apple icons and style features -->
+        <link rel="apple-touch-icon" href="images/icons-192.png"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/> <!-- or black -->
+
+        <script type="text/javascript" src="js/Util.js"> </script>
+        <script type="text/javascript" src="js/PassIt.js"> </script>
+        <script type="text/javascript" src="js/MidiNotes.js" async> </script>
+        <link rel="stylesheet" type="text/css" href="css/core.css" media="all" async/>
+        <link rel="stylesheet" type="text/css" href="css/passit.css" media="all" async/>
+
+    </head>
+    <body onload="init()" id="rootNode" class="state_paint">
+        <h1>Pass It!</h1>
+        
+        <noscript>
+            <h2>This site requires Javascript</h2>
+        </noscript>
+
+        <button id="install-app" class="hidden">Install as an App</button>
+        <p class="banner">How to use</p>
+        <p>Hit the start putton to start a random timer. The min/max is set per the Time Length choosen above. The shorter ones are useful for just passing an item, longer intervals could be used with flash cards or a deck of trivia cards.</p>
+        <p class="banner">Options</p>
+        <div class="control">
+            <label for="volume">Volume
+                <input name="volume" type="range" id="volume" min="0" max="100" step="10"/>
+            </label>
+        </div>
+        <div class="control">
+            <label for="timer">Timer Length
+                <select name="timer" class="tagAlong" id="timer"> 
+                    <option value="very_short">very short (30-45 Seconds)</option>
+                    <option value="short">short (40-60 Seconds)</option>
+                    <option value="medium">medium (50-90 Seconds)</option>
+                    <option value="long">long (1-3 Mins)</option>
+                    <option value="very_long">very long (2-5 Mins)</option>
+                </select>
+            </label>
+        </div>
+    
+        <button id="start" class="primary">Start</button>
+        <button id="resume" class="primary">Resume</button>
+        <button id="pause" class="secondary">Pause</button>
+        <button id="stop" class="secondary">Stop</button>
+
+        <p id="youAreIt" class="banner">YOU ARE IT!</p>
+
+        <footer class="footer" role="contentinfo">
+            <p class="fullWidth footer"><em>I've been known to be wrong every once in a while. If you've found an Issue, <a rel="noopener" target="_blank" href="https://github.com/jrymal/passit/issues/new">let me know!</a></em></p>
+        </footer>
+
+        <script>
+            "use strict";
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                    .register('serviceworker.js')
+                    .then(function() { console.debug("Service Worker Registered"); })
+                    .catch(function(error) {console.warn('Registration failed with ' + error);});
+            }
+        </script>
+    </body>
+</html>
