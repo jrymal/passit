@@ -106,11 +106,15 @@ const PASS_IT_APP = {
 
     startTimer: function() {
         var self = this
-        if (!exists(self.timer)) {
-            self.timer = Object.create(TIMER)
-                .init(() => self.gameComplete(),self.getRandomTime())
-                .start();
+        
+        if (exists(self.timer)) {
+            self.timer.stop();
         }
+        
+        self.timer = Object.create(TIMER)
+            .init(() => self.gameComplete(),self.getRandomTime())
+            .start();
+        
         show($("youAreIt"), false);
         show($("start"), false);
         show($("resume"), false);
@@ -124,13 +128,11 @@ const PASS_IT_APP = {
 
     resumeTimer: function(){
         var self = this
+        
         if (exists(self.timer)) {
             self.timer.resume();
-        } else {
-            self.timer = Object.create(TIMER)
-                .init(() => self.gameComplete(),self.getRandomTime())
-                .start();
         }
+        
         show($("youAreIt"), false);
         show($("start"), false);
         show($("resume"), false);
@@ -190,10 +192,28 @@ const PASS_IT_APP = {
         return randomNumber(tg.min,tg.max)*1000;
     },
 
+    resetGame:function(){
+
+        show($("youAreIt"), false);
+        show($("start"), true);
+        show($("stop"), false);
+        show($("pause"), false);
+        
+        $("rootNode").classList.remove("running");
+        $("rootNode").classList.remove("paused");
+        $("rootNode").classList.remove("complete");
+    },
+
     gameComplete:function(){
         this.stopTimer();
-        var mp = this.getMidiPlayer();
+        var self = this
+
+        self.timer = Object.create(TIMER)
+            .init(() => self.resetGame(), 10000)
+            .start();
         
+        var mp = this.getMidiPlayer();
+       
         show($("youAreIt"), true);
         show($("start"), true);
         show($("stop"), false);
