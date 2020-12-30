@@ -79,8 +79,7 @@ const PASS_IT_APP = {
 
     setVolume : function(){
         this.saveState();
-        let mp = this.getMidiPlayer();
-        mp.setVolume($("volume").value);
+        this.getMidiPlayer().setVolume($("volume").value);
     },
 
     installApp: function(){
@@ -105,7 +104,10 @@ const PASS_IT_APP = {
     },
 
     startTimer: function() {
-        var self = this
+        var self = this;
+
+        // start notification
+        self.getMidiPlayer().playNote(["A:4", "A:3", "A:4"]);
         
         if (exists(self.timer)) {
             self.timer.stop();
@@ -205,15 +207,11 @@ const PASS_IT_APP = {
     },
 
     gameComplete:function(){
-        this.stopTimer();
-        var self = this
+        var self = this;
+        self.stopTimer();
 
-        self.timer = Object.create(TIMER)
-            .init(() => self.resetGame(), 10000)
-            .start();
+        self.getMidiPlayer().playNote(["A:4", "A:5", "A:4"]);
         
-        var mp = this.getMidiPlayer();
-       
         show($("youAreIt"), true);
         show($("start"), true);
         show($("stop"), false);
@@ -223,7 +221,9 @@ const PASS_IT_APP = {
         $("rootNode").classList.remove("paused");
         $("rootNode").classList.add("complete");
         
-        mp.playNote(["A:4", "A:5", "A:4"]);
+        self.timer = Object.create(TIMER)
+            .init(() => self.resetGame(), 10000)
+            .start();
     }
 };
 
